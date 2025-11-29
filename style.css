@@ -1,0 +1,178 @@
+:root {
+    --nokia-bg: #c7f0d8;
+    --nokia-fg: #43523d;
+    --phone-body: #333333;
+    --phone-screen-border: #999999;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    touch-action: manipulation;
+    /* Prevent double-tap zoom */
+}
+
+body {
+    background-color: #f0f0f0;
+    font-family: 'Press Start 2P', cursive;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    color: var(--nokia-fg);
+}
+
+.phone-container {
+    background-color: var(--phone-body);
+    padding: 40px 20px 60px;
+    border-radius: 30px 30px 50px 50px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    width: 360px;
+}
+
+.screen-bezel {
+    background-color: var(--phone-screen-border);
+    padding: 15px;
+    border-radius: 10px 10px 30px 10px;
+    width: 100%;
+}
+
+.screen {
+    background-color: var(--nokia-bg);
+    border: 2px solid var(--nokia-fg);
+    padding: 5px;
+    position: relative;
+    height: 240px;
+    /* Fixed height for aspect ratio */
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10px;
+    margin-bottom: 5px;
+    padding: 0 2px;
+}
+
+canvas {
+    background-color: var(--nokia-bg);
+    width: 100%;
+    height: 100%;
+    image-rendering: pixelated;
+    border-top: 2px solid var(--nokia-fg);
+}
+
+#game-over {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: var(--nokia-bg);
+    padding: 10px;
+    border: 2px solid var(--nokia-fg);
+    display: none;
+}
+
+#game-over.hidden {
+    display: none;
+}
+
+#game-over:not(.hidden) {
+    display: block;
+}
+
+.blink {
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
+}
+
+.brand {
+    color: #aaaaaa;
+    font-family: sans-serif;
+    font-weight: bold;
+    font-size: 1.2rem;
+    letter-spacing: 2px;
+}
+
+.controls {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.d-pad {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+    width: 180px;
+}
+
+.btn {
+    background: #f0f0f0;
+    border: none;
+    border-radius: 5px;
+    padding: 15px 0;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 0 #999;
+    active: translateY(4px);
+    box-shadow: 0 0 0 #999;
+    color: #333;
+}
+
+.btn:active {
+    transform: translateY(4px);
+    box-shadow: none;
+}
+
+.up {
+    grid-column: 2;
+}
+
+.left {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.right {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+.down {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+/* Scanline effect */
+.screen::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+    background-size: 100% 4px;
+    pointer-events: none;
+}
